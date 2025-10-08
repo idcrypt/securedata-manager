@@ -4,8 +4,8 @@
   "description": "A secure, client-side data manager for seed phrases, passwords, key phrases, and private notes with multilingual support.",
   "main": "src/index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "serve .",
+    "build": "babel src --out-dir dist --copy-files"
   },
   "keywords": [
     "cryptography",
@@ -22,5 +22,12 @@
     "crypto-js": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.26.0",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "serve": "^14.2.0"
   }
 }
