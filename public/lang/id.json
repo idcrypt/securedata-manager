@@ -1,0 +1,20 @@
+{
+  "app_title": "Manajer Data Rahasia",
+  "app_desc": "Simpan seed phrase, password, key, dan catatan rahasia secara terenkripsi & backup sebagai file.",
+  "input_title": "Tambah Data Rahasia",
+  "label_type": "Tipe Data:",
+  "opt_seed": "Seed Phrase",
+  "opt_pass": "Password",
+  "opt_key": "Key Phrase",
+  "opt_note": "Catatan",
+  "label_label": "Label/Nama:",
+  "label_data": "Isi Data Rahasia:",
+  "label_master": "Master Password (untuk backup):",
+  "btn_add": "Tambah & Enkripsi",
+  "list_title": "Data Tersimpan (Local)",
+  "download_btn": "Download Backup",
+  "restore_title": "Restore Backup",
+  "restore_password_placeholder": "Masukkan Master Password",
+  "restore_btn": "Restore & Tampilkan",
+  "footer_text": "© 2025 Manajer Data Rahasia | Data terenkripsi & tidak pernah keluar dari perangkat Anda."
+}
