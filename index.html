@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Secure Data Manager</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
@@ -59,5 +59,110 @@
       <p id="footer-text">© 2025 Secure Data Manager | Your encrypted data never leaves your device.</p>
     </footer>
   </div>
+
+  <script>
+    const STORAGE_KEY = "securedata_entries";
+    let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    let currentLang = localStorage.getItem("lang") || "en";
+    let text = {};
+
+    // 🔄 Load language file
+    async function loadLanguage(lang) {
+      const res = await fetch(`lang/${lang}.json`);
+      text = await res.json();
+      applyLanguage();
+      localStorage.setItem("lang", lang);
+    }
+
+    function applyLanguage() {
+      document.getElementById("app-title").innerText = text.app_title;
+      document.getElementById("app-desc").innerText = text.app_desc;
+      document.getElementById("input-title").innerText = text.input_title;
+      document.getElementById("label-type").innerText = text.label_type;
+      document.getElementById("label-label").innerText = text.label_label;
+      document.getElementById("label-data").innerText = text.label_data;
+      document.getElementById("label-master").innerText = text.label_master;
+      document.getElementById("btn-add").innerText = text.btn_add;
+      document.getElementById("list-title").innerText = text.list_title;
+      document.getElementById("download-btn").innerText = text.download_btn;
+      document.getElementById("restore-title").innerText = text.restore_title;
+      document.getElementById("restore-btn").innerText = text.restore_btn;
+      document.getElementById("footer-text").innerText = text.footer_text;
+    }
+
+    // 🧠 Encrypt and add entry
+    document.getElementById("secret-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const type = document.getElementById("type").value;
+      const label = document.getElementById("label").value;
+      const data = document.getElementById("data").value;
+      const master = document.getElementById("master").value;
+      const encrypted = CryptoJS.AES.encrypt(data, master).toString();
+
+      entries.push({ type, label, encrypted, created_at: new Date().toISOString() });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+      renderList();
+      e.target.reset();
+    });
+
+    // 📜 Render local entries
+    function renderList() {
+      const list = document.getElementById("data-list");
+      list.innerHTML = "";
+      entries.forEach((entry, i) => {
+        const li = document.createElement("li");
+        li.textContent = `${entry.label} (${entry.type})`;
+        list.appendChild(li);
+      });
+    }
+
+    // 💾 Download backup
+    document.getElementById("download-btn").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify({ entries })], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "securedata_backup.json";
+      a.click();
+    });
+
+    // 🔁 Restore backup
+    document.getElementById("restore-btn").addEventListener("click", () => {
+      const file = document.getElementById("restore-file").files[0];
+      const pass = document.getElementById("restore-password").value;
+      if (!file || !pass) return alert("Please select file and enter password.");
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const json = JSON.parse(e.target.result);
+        const ul = document.getElementById("restore-list");
+        ul.innerHTML = "";
+        json.entries.forEach((entry) => {
+          const decrypted = CryptoJS.AES.decrypt(entry.encrypted, pass).toString(CryptoJS.enc.Utf8);
+          const li = document.createElement("li");
+          li.textContent = `${entry.label}: ${decrypted || "[wrong password]"}`;
+          ul.appendChild(li);
+        });
+      };
+      reader.readAsText(file);
+    });
+
+    // 🌐 Lang switch
+    document.getElementById("en-btn").onclick = () => {
+      currentLang = "en";
+      loadLanguage("en");
+      document.getElementById("en-btn").classList.add("active");
+      document.getElementById("id-btn").classList.remove("active");
+    };
+    document.getElementById("id-btn").onclick = () => {
+      currentLang = "id";
+      loadLanguage("id");
+      document.getElementById("id-btn").classList.add("active");
+      document.getElementById("en-btn").classList.remove("active");
+    };
+
+    // 🚀 Init
+    loadLanguage(currentLang);
+    renderList();
+  </script>
 </body>
 </html>
