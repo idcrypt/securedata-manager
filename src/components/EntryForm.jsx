@@ -8,20 +8,26 @@ const EntryForm = ({ lang, text, onAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!label || !data || !master) return;
+    if (!label.trim() || !data.trim() || !master.trim()) {
+      alert(text.fill_all_fields || "Please fill in all required fields.");
+      return;
+    }
+
     onAdd({
       type,
-      label,
-      data,
-      master,
+      label: label.trim(),
+      data: data.trim(),
+      master: master.trim(),
     });
+
     setLabel("");
     setData("");
     setMaster("");
+    document.getElementById("label")?.focus();
   };
 
   return (
-    <form id="secret-form" onSubmit={handleSubmit}>
+    <form id="secret-form" onSubmit={handleSubmit} className="entry-form">
       <label htmlFor="type">{text.label_type}</label>
       <select
         id="type"
@@ -34,6 +40,7 @@ const EntryForm = ({ lang, text, onAdd }) => {
         <option value="key_phrase">{text.opt_key}</option>
         <option value="note">{text.opt_note}</option>
       </select>
+
       <label htmlFor="label">{text.label_label}</label>
       <input
         type="text"
@@ -43,6 +50,7 @@ const EntryForm = ({ lang, text, onAdd }) => {
         onChange={(e) => setLabel(e.target.value)}
         required
       />
+
       <label htmlFor="data">{text.label_data}</label>
       <textarea
         id="data"
@@ -51,6 +59,7 @@ const EntryForm = ({ lang, text, onAdd }) => {
         onChange={(e) => setData(e.target.value)}
         required
       />
+
       <label htmlFor="master">{text.label_master}</label>
       <input
         type="password"
@@ -60,6 +69,7 @@ const EntryForm = ({ lang, text, onAdd }) => {
         onChange={(e) => setMaster(e.target.value)}
         required
       />
+
       <button type="submit" id="btn-add">
         {text.btn_add}
       </button>
