@@ -190,6 +190,45 @@ footer {
   border-radius: 9px;
 }
 
+.entry-viewer {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #0ff;
+  border-radius: 12px;
+  background: rgba(0, 10, 30, 0.8);
+  box-shadow: 0 0 10px #00f5ff33;
+}
+
+.decrypt-form input {
+  padding: 8px;
+  margin-right: 6px;
+  background: #111;
+  color: #0ff;
+  border: 1px solid #0ff;
+  border-radius: 6px;
+}
+
+.decrypt-form button {
+  background: #0ff;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.decrypted-field {
+  width: 100%;
+  height: 120px;
+  background: #001;
+  color: #0ff;
+  border: 1px solid #0ff;
+  border-radius: 8px;
+  padding: 8px;
+  font-family: monospace;
+}
+
 /* Tambahan/penyempurnaan untuk section Saved Data dan Restore */
 
 /* Download Backup & Restore Button */
