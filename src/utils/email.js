@@ -1,29 +1,21 @@
-// Utility untuk export dan import file backup JSON
+// Utility untuk mengirim file backup ke email (opsional, contoh integrasi)
+// Menggunakan EmailJS (https://www.emailjs.com/) atau API lain
 
-// Export array entries sebagai file JSON
-export function exportBackup(entries) {
-  const dataStr = JSON.stringify({ entries });
-  const blob = new Blob([dataStr], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "backup_securedata.json";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
+// Import emailjs jika menggunakan emailjs
+// import emailjs from 'emailjs-com';
 
-// Import file JSON dan parsing isinya
-export function importBackup(file, callback) {
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    try {
-      const backup = JSON.parse(e.target.result);
-      callback(backup);
-    } catch (err) {
-      callback(null);
-    }
-  };
-  reader.readAsText(file);
+export async function sendBackupToEmail(fileContent, email, lang = "en") {
+  // Contoh dengan emailjs, pastikan sudah setup emailjs di project!
+  // emailjs.send(service_id, template_id, {
+  //   to_email: email,
+  //   file_content: fileContent,
+  //   lang: lang
+  // }, user_id);
+
+  // Untuk demo, hanya alert
+  alert(
+    lang === "en"
+      ? "Feature to send backup to email is not implemented yet."
+      : "Fitur kirim backup ke email belum tersedia."
+  );
 }
