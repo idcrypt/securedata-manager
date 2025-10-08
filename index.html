@@ -68,7 +68,7 @@
 
     // 🔄 Load language file
     async function loadLanguage(lang) {
-      const res = await fetch(`lang/${lang}.json`);
+      const res = await fetch(`./lang/${lang}.json`);
       text = await res.json();
       applyLanguage();
       localStorage.setItem("lang", lang);
