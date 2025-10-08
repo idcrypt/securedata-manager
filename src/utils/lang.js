@@ -1,9 +1,13 @@
 // src/utils/lang.js
 
-// Gunakan path relatif agar tetap berfungsi di GitHub Web (docs/)
+// ✅ Otomatis deteksi apakah dijalankan di GitHub Pages
+const BASE_PATH = window.location.hostname.includes("github.io")
+  ? "/securedata-manager/docs/"
+  : "/docs/"; // kalau di lokal (npm run dev)
+
 export const LANGS = {
-  en: "./lang/en.json",
-  id: "./lang/id.json",
+  en: `${BASE_PATH}lang/en.json`,
+  id: `${BASE_PATH}lang/id.json`,
 };
 
 export async function loadLanguage(lang) {
