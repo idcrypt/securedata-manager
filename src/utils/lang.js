@@ -1,5 +1,4 @@
 // src/utils/lang.js
-
 export const LANGS = {
   en: "/lang/en.json",
   id: "/lang/id.json",
