@@ -1,14 +1,9 @@
 // src/utils/lang.js
 
-// Tentukan BASE_URL secara otomatis tergantung lokasi deploy
-const BASE =
-  window.location.hostname.includes("github.io")
-    ? "/securedata-manager/docs/"
-    : "/docs/";
-
+// Gunakan path relatif agar tetap berfungsi di GitHub Web (docs/)
 export const LANGS = {
-  en: `${BASE}lang/en.json`,
-  id: `${BASE}lang/id.json`,
+  en: "./lang/en.json",
+  id: "./lang/id.json",
 };
 
 export async function loadLanguage(lang) {
