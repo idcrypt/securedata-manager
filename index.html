@@ -1,66 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secure Data Manager</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="assets/logo.png" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <img src="assets/logo.png" alt="Logo" style="height:48px;">
-      <h1 id="app-title">Secure Data Manager</h1>
-      <div id="lang-switch">
-        <button id="en-btn" class="lang-btn active">English</button>
-        <button id="id-btn" class="lang-btn">Indonesia</button>
-      </div>
-    </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Data Manager</title>
 
-    <p id="app-desc">Store your seed phrase, password, key, and secret notes securely with encryption & backup as a file.</p>
-    
-    <section id="input-section">
-      <h2 id="input-title">Add Secret Data</h2>
-      <form id="secret-form">
-        <label for="type" id="label-type">Data Type:</label>
-        <select id="type" required>
-          <option value="seed_phrase" id="opt-seed">Seed Phrase</option>
-          <option value="password" id="opt-pass">Password</option>
-          <option value="key_phrase" id="opt-key">Key Phrase</option>
-          <option value="note" id="opt-note">Note</option>
-        </select>
-        <label for="label" id="label-label">Label/Name:</label>
-        <input type="text" id="label" required placeholder="Example: Ethereum Wallet / Gmail / API Key">
-        <label for="data" id="label-data">Secret Data Content:</label>
-        <textarea id="data" required placeholder="Enter your secret data here"></textarea>
-        <label for="master" id="label-master">Master Password (for backup):</label>
-        <input type="password" id="master" required placeholder="Create a backup password">
-        <button type="submit" id="btn-add">Add & Encrypt</button>
-      </form>
-    </section>
-    
-    <section id="list-section">
-      <h2 id="list-title">Saved Data (Local)</h2>
-      <ul id="data-list"></ul>
-      <button id="download-btn">Download Backup</button>
-    </section>
-    
-    <section id="restore-section">
-      <h2 id="restore-title">Restore Backup</h2>
-      <input type="file" id="restore-file" accept=".json">
-      <input type="password" id="restore-password" placeholder="Enter Master Password">
-      <button id="restore-btn">Restore & Show</button>
-      <ul id="restore-list"></ul>
-    </section>
-    
-    <footer>
-      <p id="footer-text">© 2025 Secure Data Manager | Your encrypted data never leaves your device.</p>
-    </footer>
-  </div>
+    <!-- Favicon dan Style -->
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <link rel="stylesheet" href="style.css" />
 
-  <!-- Main script -->
-  <script type="module" src="main.js"></script>
-</body>
+    <!-- CryptoJS (digunakan di utils/crypto.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Root React -->
+    <div id="root"></div>
+
+    <!-- Footer fallback (jika JS mati) -->
+    <noscript>
+      <p style="text-align:center; color:#f33;">
+        This app requires JavaScript to function properly.
+      </p>
+    </noscript>
+
+    <!-- React entry point -->
+    <script type="module" src="src/index.js"></script>
+  </body>
 </html>
