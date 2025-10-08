@@ -7,8 +7,8 @@ import EntryViewer from "./components/EntryViewer.jsx";
 
 // Jika memakai file lang JSON, bisa fetch saat runtime
 const LANGS = {
-  en: "lang/en.json",
-  id: "lang/id.json",
+  en: "./lang/en.json",
+  id: "./lang/id.json",
 };
 
 import { encryptData, decryptData } from "./utils/crypto.js";
