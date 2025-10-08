@@ -4,27 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Secure Data Manager</title>
-
-    <!-- Favicon dan Style -->
-    <link rel="icon" type="image/png" href="assets/logo.png" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
 
-    <!-- CryptoJS (digunakan di utils/crypto.js) -->
+    <!-- React & Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- CryptoJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
   </head>
-
   <body>
-    <!-- Root React -->
     <div id="root"></div>
 
-    <!-- Footer fallback (jika JS mati) -->
-    <noscript>
-      <p style="text-align:center; color:#f33;">
-        This app requires JavaScript to function properly.
-      </p>
-    </noscript>
-
-    <!-- React entry point -->
-    <script type="module" src="src/index.js"></script>
+    <!-- React App Entry -->
+    <script type="text/babel" src="src/index.js"></script>
   </body>
 </html>
