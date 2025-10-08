@@ -1,0 +1,20 @@
+{
+  "app_title": "Secure Data Manager",
+  "app_desc": "Store your seed phrase, password, key, and secret notes securely with encryption & backup as a file.",
+  "input_title": "Add Secret Data",
+  "label_type": "Data Type:",
+  "opt_seed": "Seed Phrase",
+  "opt_pass": "Password",
+  "opt_key": "Key Phrase",
+  "opt_note": "Note",
+  "label_label": "Label/Name:",
+  "label_data": "Secret Data Content:",
+  "label_master": "Master Password (for backup):",
+  "btn_add": "Add & Encrypt",
+  "list_title": "Saved Data (Local)",
+  "download_btn": "Download Backup",
+  "restore_title": "Restore Backup",
+  "restore_password_placeholder": "Enter Master Password",
+  "restore_btn": "Restore & Show",
+  "footer_text": "© 2025 Secure Data Manager | Your encrypted data never leaves your device."
+}
