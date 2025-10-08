@@ -15,7 +15,7 @@ const BackupDownloader = ({ entries, text }) => {
   };
 
   return (
-    <button id="download-btn" onClick={handleDownload}>
+    <button id="download-btn" type="button" onClick={handleDownload}>
       {text.download_btn || "Download Backup"}
     </button>
   );
