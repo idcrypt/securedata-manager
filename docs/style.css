@@ -189,3 +189,112 @@ footer {
   background: #00cfff66;
   border-radius: 9px;
 }
+
+/* Tambahan/penyempurnaan untuk section Saved Data dan Restore */
+
+/* Download Backup & Restore Button */
+#download-btn,
+#restore-btn {
+  background: linear-gradient(90deg, #00cfff 60%, #3651fa 100%);
+  color: #0e1f3b;
+  font-weight: 600;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  box-shadow: 0 0 18px #00cfff55;
+  font-size: 1.07em;
+  margin-top: 9px;
+  margin-bottom: 6px;
+  transition: background 0.15s, color 0.15s;
+  display: inline-block;
+}
+#download-btn:hover,
+#restore-btn:hover {
+  background: #00cfff;
+  color: #3651fa;
+}
+
+/* File Input Custom */
+input[type="file"] {
+  display: block;
+  margin: 7px 0 12px 0;
+  color: #00cfff;
+  background: #121d39;
+  border: 1px solid #00cfff55;
+  border-radius: 7px;
+  padding: 7px 0;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 0 8px #00cfff22;
+}
+input[type="file"]::-webkit-file-upload-button {
+  background: linear-gradient(90deg, #00cfff 60%, #3651fa 100%);
+  color: #0e1f3b;
+  font-weight: 600;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 16px;
+  box-shadow: 0 0 10px #00cfff33;
+  cursor: pointer;
+  font-size: 0.96em;
+}
+input[type="file"]:focus {
+  border: 1.5px solid #00cfff;
+  outline: none;
+}
+
+/* Restore Section Layout */
+#restore-section {
+  background: #101a2c;
+  border-radius: 12px;
+  box-shadow: 0 0 16px #00cfff44;
+  padding: 17px 14px 9px 14px;
+  margin-top: 22px;
+}
+
+#restore-password {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  background: #121d39;
+  color: #cce2ff;
+  border: 1px solid #00cfff44;
+  border-radius: 7px;
+  padding: 8px 10px;
+  font-size: 1em;
+  outline: none;
+  transition: border 0.2s;
+}
+#restore-password:focus {
+  border: 1.5px solid #00cfff;
+  background: #192a4a;
+}
+
+/* List restored data (mirip data-list) */
+ul#restore-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
+}
+ul#restore-list li {
+  background: #121d39;
+  color: #d0f1ff;
+  margin-bottom: 7px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 0 10px #00cfff22;
+  word-break: break-all;
+}
+
+/* Responsif untuk mobile */
+@media (max-width: 600px) {
+  .container {
+    padding: 14px 3vw 12px 3vw;
+    max-width: 99vw;
+  }
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
