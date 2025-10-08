@@ -5,7 +5,12 @@ const RestoreForm = ({ text, onRestore }) => {
   const [master, setMaster] = useState("");
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const uploaded = e.target.files[0];
+    if (uploaded && uploaded.name.endsWith(".json")) {
+      setFile(uploaded);
+    } else {
+      alert(text.invalid_file || "Please upload a valid JSON file.");
+    }
   };
 
   const handleRestore = () => {
@@ -13,25 +18,32 @@ const RestoreForm = ({ text, onRestore }) => {
       alert(text.no_file_selected || "No file selected.");
       return;
     }
-    if (!master) {
+    if (!master.trim()) {
       alert(text.no_password || "Please enter your master password.");
       return;
     }
+
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
         const backup = JSON.parse(e.target.result);
-        onRestore(backup, master);
+        if (!backup.entries) throw new Error("Invalid format");
+        onRestore(backup, master.trim());
       } catch (err) {
-        alert(text.restore_error || "Invalid backup file.");
+        console.error(err);
+        alert(text.restore_error || "Invalid backup file format.");
       }
     };
     reader.readAsText(file);
   };
 
   return (
-    <div>
-      <input type="file" accept=".json" onChange={handleFileChange} />
+    <div className="restore-form">
+      <input
+        type="file"
+        accept=".json"
+        onChange={handleFileChange}
+      />
       <input
         type="password"
         placeholder={text.restore_password_placeholder || "Enter Master Password"}
