@@ -14,89 +14,55 @@ function App() {
   const [text, setText] = useState({});
   const [entries, setEntries] = useState([]);
   const [viewIdx, setViewIdx] = useState(null);
-  const [decryptedData, setDecryptedData] = useState(null);
 
-  // 🔄 Load bahasa dari localStorage atau default "en"
+  // Load language from localStorage
   useEffect(() => {
     const savedLang = localStorage.getItem("lang") || "en";
     setLang(savedLang);
   }, []);
 
-  // 🌍 Fetch teks bahasa
   useEffect(() => {
-    loadLanguage(lang)
-      .then((t) => setText(t || {}))
-      .catch(() => setText({ app_title: "Secure Data Manager" }));
-    localStorage.setItem("lang", lang);
+    loadLanguage(lang).then((data) => {
+      setText(data);
+      localStorage.setItem("lang", lang);
+    });
   }, [lang]);
 
-  // 💾 Load dari localStorage
+  // Load entries from localStorage
   useEffect(() => {
     const saved = localStorage.getItem(LOCAL_KEY);
-    if (saved) {
-      try {
-        setEntries(JSON.parse(saved));
-      } catch {
-        console.warn("Failed to parse localStorage data.");
-      }
-    }
+    if (saved) setEntries(JSON.parse(saved));
   }, []);
 
-  // 🧠 Save ke localStorage setiap update
+  // Save entries to localStorage
   useEffect(() => {
     localStorage.setItem(LOCAL_KEY, JSON.stringify(entries));
   }, [entries]);
 
   const handleAdd = ({ type, label, data, master }) => {
     const encrypted = encryptData(data, master);
-    setEntries((prev) => [
-      ...prev,
+    setEntries([
+      ...entries,
       { type, label, encrypted, created_at: new Date().toISOString() },
     ]);
   };
 
-  const handleView = (idx) => {
-    setViewIdx(idx);
-    setDecryptedData(null); // reset sebelumnya
-  };
-
-  const handleDecryptView = (idx, master) => {
-    const entry = entries[idx];
-    const decrypted = decryptData(entry.encrypted, master);
-    if (!decrypted) {
-      alert(text.decrypt_failed || "Incorrect master password.");
-      return;
-    }
-    setDecryptedData(decrypted);
-  };
+  const handleView = (idx) => setViewIdx(idx);
 
   const handleRestore = (backup, master) => {
     if (!backup || !backup.entries) return;
-    if (!window.confirm(text.restore_confirm || "Replace existing data with backup?"))
-      return;
-
-    const restored = backup.entries.map((entry) => {
-      const decrypted = decryptData(entry.encrypted, master);
-      return {
-        ...entry,
-        decrypted: decrypted || null,
-      };
-    });
-
-    const successCount = restored.filter((e) => e.decrypted).length;
-    if (successCount === 0) {
-      alert(text.restore_error || "Invalid password or backup file.");
-      return;
-    }
-
+    const restored = backup.entries.map((entry) => ({
+      ...entry,
+      decrypted: decryptData(entry.encrypted, master),
+    }));
     setEntries(restored);
     setViewIdx(null);
-    alert(text.restore_success || "Backup restored successfully!");
   };
 
   return (
-    <div className="App">
+    <div className="App container">
       <header>
+        <img src="assets/logo.png" alt="Logo" />
         <h1>{text.app_title || "Secure Data Manager"}</h1>
         <div id="lang-switch">
           <button
@@ -123,11 +89,7 @@ function App() {
 
       <section>
         <h2>{text.list_title}</h2>
-        <EntryList
-          entries={entries}
-          text={text}
-          onView={handleView}
-        />
+        <EntryList entries={entries} text={text} onView={handleView} />
         <BackupDownloader entries={entries} text={text} />
       </section>
 
@@ -137,18 +99,14 @@ function App() {
       </section>
 
       <section>
-        {viewIdx !== null && (
-          <EntryViewer
-            entry={entries[viewIdx]}
-            text={text}
-            onDecrypt={(master) => handleDecryptView(viewIdx, master)}
-            decrypted={decryptedData}
-          />
-        )}
+        <EntryViewer
+          entry={viewIdx !== null ? entries[viewIdx] : null}
+          text={text}
+        />
       </section>
 
       <footer>
-        <p>{text.footer_text || "All data stays safely on your device."}</p>
+        <p>{text.footer_text}</p>
       </footer>
     </div>
   );
